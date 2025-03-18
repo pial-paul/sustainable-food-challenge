@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sustainable Food Challenge</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1><i class="fas fa-leaf"></i> Sustainable Food Challenge</h1>
+        <button id="darkModeToggle" class="dark-mode-toggle">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="meal-calculator">
+          <i class="fas fa-utensils"></i> Meal Calculator
+        </button>
+        <button class="tab-btn" data-tab="waste-tracker">
+          <i class="fas fa-trash"></i> Waste Tracker
+        </button>
+        <button class="tab-btn" data-tab="challenges">
+          <i class="fas fa-trophy"></i> Challenges
+        </button>
+        <button class="tab-btn" data-tab="grocery-scanner">
+          <i class="fas fa-barcode"></i> Grocery Scanner
+        </button>
+      </div>
+
+      <!-- Meal Carbon Calculator Section -->
+      <section id="meal-calculator" class="tab-content active">
+        <h2>Meal Carbon Calculator 🍽️</h2>
+        <div class="card">
+          <form id="meal-form">
+            <div class="form-group">
+              <label for="food-item">Select Food Item:</label>
+              <select id="food-item" required>
+                <option value="">Choose a food...</option>
+                <option value="beef">Beef</option>
+                <option value="chicken">Chicken</option>
+                <option value="tofu">Tofu</option>
+                <option value="rice">Rice</option>
+                <option value="lentils">Lentils</option>
+                <option value="potatoes">Potatoes</option>
+                <option value="beans">Beans</option>
+                <option value="cheese">Cheese</option>
+                <option value="eggs">Eggs</option>
+                <option value="fish">Fish</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="quantity">Quantity (grams):</label>
+              <input
+                type="number"
+                id="quantity"
+                min="1"
+                max="2000"
+                value="100"
+                required
+              />
+            </div>
+            <button type="submit" class="btn">Calculate Impact</button>
+          </form>
+
+          <div id="meal-results" class="results-box">
+            <h3>Carbon Footprint Results</h3>
+            <div id="carbon-result"></div>
+            <div class="alternatives">
+              <h4>Low-Carbon Alternatives</h4>
+              <ul id="alternatives-list"></ul>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="meal-comparison-chart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Food Waste Tracker Section -->
+      <section id="waste-tracker" class="tab-content">
+        <h2>Food Waste Tracker 🚯</h2>
+        <div class="card">
+          <form id="waste-form">
+            <div class="form-group">
+              <label for="waste-item">Food Item Wasted:</label>
+              <input
+                type="text"
+                id="waste-item"
+                placeholder="e.g., half loaf of bread"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="waste-quantity">Quantity (grams):</label>
+              <input
+                type="number"
+                id="waste-quantity"
+                min="1"
+                value="100"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="waste-date">Date:</label>
+              <input type="date" id="waste-date" required />
+            </div>
+            <button type="submit" class="btn">Log Waste</button>
+          </form>
+
+          <div class="waste-logs">
+            <h3>Your Waste Logs</h3>
+            <div id="waste-list" class="scrollable-list"></div>
+          </div>
+
+          <div class="waste-summary">
+            <h3>Weekly Summary</h3>
+            <div class="chart-container">
+              <canvas id="waste-chart"></canvas>
+            </div>
+            <div id="waste-tips" class="tips-box">
+              <h4>Tips to Reduce Waste</h4>
+              <p class="tip">
+                Make a meal plan for the week and shop with a list.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Weekly Challenges Section -->
+      <section id="challenges" class="tab-content">
+        <h2>Weekly Challenges & Rewards 🏆</h2>
+        <div class="card">
+          <div class="user-stats">
+            <div class="points-display">
+              <h3>Your Points</h3>
+              <div id="user-points" class="points">0</div>
+            </div>
+            <div class="progress-container">
+              <h3>Level Progress</h3>
+              <div class="progress-bar">
+                <div
+                  id="level-progress"
+                  class="progress"
+                  style="width: 0%"
+                ></div>
+              </div>
+              <p id="level-status">Level 1: Eco Rookie</p>
+            </div>
+          </div>
+
+          <div class="challenges-container">
+            <h3>Available Challenges</h3>
+            <div class="challenge-cards">
+              <div class="challenge-card" data-challenge="meat-free">
+                <h4>Meat-Free Monday</h4>
+                <p>Avoid all meat products for a day</p>
+                <span class="points-badge">+50 points</span>
+                <button class="btn complete-btn" data-points="50">
+                  Mark Complete
+                </button>
+              </div>
+              <div class="challenge-card" data-challenge="local-produce">
+                <h4>Local Produce Day</h4>
+                <p>Only eat locally sourced food</p>
+                <span class="points-badge">+30 points</span>
+                <button class="btn complete-btn" data-points="30">
+                  Mark Complete
+                </button>
+              </div>
+              <div class="challenge-card" data-challenge="zero-waste">
+                <h4>Zero Waste Day</h4>
+                <p>Generate no food waste for 24 hours</p>
+                <span class="points-badge">+40 points</span>
+                <button class="btn complete-btn" data-points="40">
+                  Mark Complete
+                </button>
+              </div>
+              <div class="challenge-card" data-challenge="plant-based">
+                <h4>Plant-Based Day</h4>
+                <p>Eat only plant-based foods all day</p>
+                <span class="points-badge">+45 points</span>
+                <button class="btn complete-btn" data-points="45">
+                  Mark Complete
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="leaderboard">
+            <h3>Community Leaderboard</h3>
+            <div id="leaderboard-list" class="scrollable-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sustainable Grocery Shopping Section -->
+      <section id="grocery-scanner" class="tab-content">
+        <h2>Sustainable Grocery Scanner 🛒</h2>
+        <div class="card">
+          <form id="barcode-form">
+            <div class="form-group">
+              <label for="barcode-input">Enter Product Barcode:</label>
+              <input
+                type="text"
+                id="barcode-input"
+                placeholder="e.g., 3017620425035"
+                required
+              />
+            </div>
+            <button type="submit" class="btn">Check Sustainability</button>
+          </form>
+
+          <div id="product-result" class="results-box hidden">
+            <!-- Content will be populated by JavaScript -->
+          </div>
+
+          <div id="product-alternatives" class="alternatives hidden">
+            <h3>Sustainable Alternatives</h3>
+            <div id="alternatives-container" class="scrollable-list"></div>
+          </div>
+
+          <div class="barcode-examples">
+            <h4>Example barcodes to try:</h4>
+            <ul>
+              <li>
+                <button class="sample-barcode" data-barcode="3017620425035">
+                  Nutella (3017620425035)
+                </button>
+              </li>
+              <li>
+                <button class="sample-barcode" data-barcode="5449000131805">
+                  Coca-Cola (5449000131805)
+                </button>
+              </li>
+              <li>
+                <button class="sample-barcode" data-barcode="8001505005707">
+                  Barilla Pasta (8001505005707)
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>
+          &copy; 2025 Sustainable Food Challenge |
+          <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a>
+        </p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
