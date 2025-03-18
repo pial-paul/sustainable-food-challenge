@@ -69,7 +69,7 @@ We welcome contributions! To contribute:
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 📬 Contact
-For questions or feedback, reach out at **your-email@example.com** or open an issue on GitHub.
+For questions or feedback, reach out at **piaillaaa@gmail.com** or open an issue on GitHub.
 
 ---
 💚 *Join us in making food consumption more sustainable!*
